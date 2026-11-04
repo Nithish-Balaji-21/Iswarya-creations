@@ -37,7 +37,7 @@
                                 Primary Cover
                             </span>
                         @else
-                            <form method="POST" action="{{ route('admin.products.set-primary-image', [$product->id, $img->id]) }}" class="absolute top-1.5 left-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <form method="POST" action="{{ route('admin.products.images.primary', [$product->id, $img->id]) }}" class="absolute top-1.5 left-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                                 @csrf
                                 <button type="submit" class="bg-white/95 text-stone-800 hover:text-maroon text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shadow-md">
                                     Make Primary
@@ -46,7 +46,7 @@
                         @endif
 
                         <!-- Delete Image Form -->
-                        <form method="POST" action="{{ route('admin.products.delete-image', [$product->id, $img->id]) }}" onsubmit="return confirm('Delete this image variant?')" class="absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <form method="POST" action="{{ route('admin.products.images.delete', [$product->id, $img->id]) }}" onsubmit="return confirm('Delete this image variant?')" class="absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="w-6 h-6 rounded-full bg-rose-600 hover:bg-rose-800 text-white flex items-center justify-center text-xs shadow-md">

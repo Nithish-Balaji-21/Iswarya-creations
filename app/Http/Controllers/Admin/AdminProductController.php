@@ -65,7 +65,87 @@ class AdminProductController extends Controller
      */
     public function create(): View
     {
-        return view('admin.products.create');
+        $categories = Category::active()->ordered()->get()->groupBy('group.value');
+        $nextSku = Product::generateNextSku();
+
+        return view('admin.products.create', compact('categories', 'nextSku'));
+    }
+
+    /**
+     * Store newly created saree and process boutique WebP images.
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'sku' => ['required', 'string', 'max:50', 'unique:products,sku'],
+            'name' => ['required', 'string', 'max:255'],
+            'price' => ['nullable', 'numeric', 'min:0'],
+            'discount_price' => ['nullable', 'numeric', 'min:0'],
+            'price_note' => ['nullable', 'string', 'max:255'],
+            'colour' => ['nullable', 'string', 'max:100'],
+            'stock_quantity' => ['nullable', 'integer', 'min:0'],
+            'is_published' => ['nullable', 'boolean'],
+            'short_description' => ['nullable', 'string', 'max:500'],
+            'description' => ['nullable', 'string'],
+            'categories' => ['required', 'array', 'min:1'],
+            'categories.*' => ['exists:categories,id'],
+            'photos' => ['required', 'array', 'min:1', 'max:10'],
+            'photos.*' => ['image', 'max:25600'],
+        ], [
+            'photos.required' => 'Please upload at least one photo of the saree.',
+            'photos.max' => 'You can upload up to 10 photos per saree.',
+            'categories.required' => 'Please select at least one category/collection.',
+        ]);
+
+        $isPublished = $request->boolean('is_published', true);
+        $status = $isPublished ? ProductStatus::Published : ProductStatus::Draft;
+
+        $product = Product::create([
+            'sku' => $validated['sku'],
+            'name' => $validated['name'],
+            'slug' => Str::slug($validated['name']).'-'.strtolower($validated['sku']),
+            'short_description' => ! empty($validated['short_description'])
+                ? $validated['short_description']
+                : 'Handwoven pure silk saree from our Peelamedu, Coimbatore flagship.',
+            'description' => ! empty($validated['description'])
+                ? $validated['description']
+                : '<p>Crafted by master weavers using certified pure mulberry silk and tested zari. Direct handloom quality.</p>',
+            'colour' => $validated['colour'] ?? null,
+            'price' => isset($validated['price']) && $validated['price'] !== '' ? (float) $validated['price'] : null,
+            'discount_price' => isset($validated['discount_price']) && $validated['discount_price'] !== '' ? (float) $validated['discount_price'] : null,
+            'price_note' => $validated['price_note'] ?? null,
+            'availability' => ProductAvailability::Available,
+            'stock_quantity' => $validated['stock_quantity'] ?? null,
+            'status' => $status,
+            'published_at' => $isPublished ? now() : null,
+            'specs' => [
+                'zari_type' => 'Tested Half-Fine Gold Zari',
+                'blouse_piece' => 'Included (Matching unstitched)',
+                'care' => 'Dry Clean Only',
+                'weave_technique' => 'Handloom Weave',
+                'origin' => 'Peelamedu, Coimbatore',
+            ],
+        ]);
+
+        $product->categories()->sync($validated['categories']);
+
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $index => $photo) {
+                $variants = $this->imageService->process($photo, 'products');
+
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'path' => $variants['large'],
+                    'medium_path' => $variants['medium'],
+                    'thumb_path' => $variants['thumb'],
+                    'is_primary' => $index === 0,
+                    'sort_order' => $index,
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.products.index')
+            ->with('success', "Saree {$product->sku} ({$product->name}) has been saved and published!");
     }
 
     /**

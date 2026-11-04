@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Account;
 use App\Http\Controllers\Controller;
 use App\Models\Enquiry;
 use App\Models\Wishlist;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +46,7 @@ class AccountController extends Controller
     /**
      * Toggle wishlist item via AJAX or POST.
      */
-    public function toggleWishlist(Request $request, int $productId): RedirectResponse
+    public function toggleWishlist(Request $request, int $productId): RedirectResponse|JsonResponse
     {
         $user = Auth::user();
 

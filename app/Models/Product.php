@@ -189,11 +189,18 @@ class Product extends Model
         $digits = config('iswarya.sku_digits', 4);
 
         return DB::transaction(function () use ($prefix, $digits) {
+            $driver = DB::connection()->getDriverName();
+            $orderSql = match ($driver) {
+                'sqlite' => 'CAST(SUBSTR(sku, ?) AS INTEGER) DESC',
+                'pgsql' => 'CAST(SUBSTRING(sku FROM ?) AS INTEGER) DESC',
+                default => 'CAST(SUBSTRING(sku, ?) AS UNSIGNED) DESC',
+            };
+
             // Find latest matching SKU lock for update
             $latest = self::withTrashed()
                 ->where('sku', 'like', $prefix.'%')
                 ->lockForUpdate()
-                ->orderByRaw('CAST(SUBSTRING(sku, ?) AS UNSIGNED) DESC', [strlen($prefix) + 1])
+                ->orderByRaw($orderSql, [strlen($prefix) + 1])
                 ->value('sku');
 
             if ($latest && preg_match('/^'.preg_quote($prefix, '/').'(\d+)$/', $latest, $matches)) {

@@ -55,7 +55,7 @@ class QuickAddProductForm extends Component
             'selectedCategories' => ['required', 'array', 'min:1'],
             'selectedCategories.*' => ['exists:categories,id'],
             'photos' => ['required', 'array', 'min:1', 'max:10'],
-            'photos.*' => ['image', 'max:12288'], // 12MB max per image
+            'photos.*' => ['image', 'max:25600'], // 25MB max per image
         ];
     }
 

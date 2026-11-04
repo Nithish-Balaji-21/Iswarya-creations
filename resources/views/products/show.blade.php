@@ -8,8 +8,8 @@
 @section('structured_data')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org/",
-  "@type": "Product",
+  "@@context": "https://schema.org/",
+  "@@type": "Product",
   "name": "{{ addslashes($product->name) }}",
   "image": [
     "{{ $product->primary_image_url }}"
@@ -17,18 +17,18 @@
   "description": "{{ addslashes(strip_tags($product->short_description ?? $product->name)) }}",
   "sku": "{{ $product->sku }}",
   "brand": {
-    "@type": "Brand",
+    "@@type": "Brand",
     "name": "Iswarya Silks"
   },
   "offers": {
-    "@type": "Offer",
+    "@@type": "Offer",
     "url": "{{ route('products.show', $product->slug) }}",
     "priceCurrency": "INR",
     "price": "{{ $product->effective_price ?? 0 }}",
     "availability": "{{ $product->is_sold_out ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock' }}",
     "itemCondition": "https://schema.org/NewCondition",
     "seller": {
-      "@type": "Organization",
+      "@@type": "Organization",
       "name": "Iswarya Silks – Peelamedu, Coimbatore"
     }
   }

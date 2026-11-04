@@ -126,13 +126,16 @@ Route::prefix('admin')->middleware(['web', 'admin'])->name('admin.')->group(func
     // Sarees / Products (fast daily management)
     Route::get('/products', [AdminProductController::class, 'index'])->name('products.index');
     Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');
+    Route::post('/products', [AdminProductController::class, 'store'])->name('products.store');
     Route::get('/products/{product}/edit', [AdminProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{product}', [AdminProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])->name('products.destroy');
     Route::post('/products/{product}/toggle-availability', [AdminProductController::class, 'toggleAvailability'])->name('products.toggle-availability');
     Route::post('/products/{product}/toggle-status', [AdminProductController::class, 'toggleStatus'])->name('products.toggle-status');
     Route::post('/products/{product}/images/{image}/primary', [AdminProductController::class, 'setPrimaryImage'])->name('products.images.primary');
+    Route::post('/products/{product}/images/{image}/set-primary', [AdminProductController::class, 'setPrimaryImage'])->name('products.set-primary-image');
     Route::delete('/products/{product}/images/{image}', [AdminProductController::class, 'deleteImage'])->name('products.images.delete');
+    Route::delete('/products/{product}/images/{image}/delete', [AdminProductController::class, 'deleteImage'])->name('products.delete-image');
 
     // Categories
     Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
@@ -158,7 +161,8 @@ Route::prefix('admin')->middleware(['web', 'admin'])->name('admin.')->group(func
 
     // Video Shopping Appointments
     Route::get('/appointments', [AdminVideoAppointmentController::class, 'index'])->name('appointments.index');
-    Route::put('/appointments/{appointment}/status', [AdminVideoAppointmentController::class, 'updateStatus'])->name('appointments.status');
+    Route::match(['put', 'patch'], '/appointments/{appointment}/status', [AdminVideoAppointmentController::class, 'updateStatus'])->name('appointments.status');
+    Route::match(['put', 'patch'], '/appointments/{appointment}/update-status', [AdminVideoAppointmentController::class, 'updateStatus'])->name('appointments.update-status');
 
     // Newsletter Subscribers
     Route::get('/newsletter', [AdminNewsletterController::class, 'index'])->name('newsletter.index');

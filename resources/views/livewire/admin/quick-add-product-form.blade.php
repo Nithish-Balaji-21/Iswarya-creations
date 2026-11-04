@@ -12,13 +12,15 @@
 
     <form wire:submit="save" class="space-y-6">
         <!-- Photo Upload Box (Up to 10 photos) -->
-        <div>
+        <div x-data="{ isDropping: false, uploadError: null }"
+             x-on:livewire-upload-start="uploadError = null"
+             x-on:livewire-upload-error="uploadError = 'Photo upload failed. Please ensure each photo is a valid image (JPEG, PNG, WebP) under 12MB.'"
+             x-on:livewire-upload-finish="uploadError = null">
             <label class="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-2">
                 Saree Photos (Drag & Drop up to 10 photos) <span class="text-rose-600">*</span>
             </label>
             
             <div class="border-2 border-dashed border-rose-200 hover:border-maroon rounded-2xl p-6 text-center bg-brand-pearl/50 transition-colors relative"
-                 x-data="{ isDropping: false }"
                  @dragover.prevent="isDropping = true"
                  @dragleave.prevent="isDropping = false"
                  @drop="isDropping = false">
@@ -35,7 +37,7 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     </div>
                     <p class="text-xs font-semibold text-stone-700">Click to browse or drop up to 10 saree photos</p>
-                    <p class="text-[11px] text-stone-400">JPEG, PNG, WebP up to 12MB. Automatically cropped to 4:5 luxury ratio and converted to 400/900/1600px WebP.</p>
+                    <p class="text-[11px] text-stone-400">JPEG, PNG, WebP up to 25MB. Automatically cropped to 4:5 luxury ratio and converted to 400/900/1600px WebP.</p>
                 </div>
             </div>
 
@@ -66,7 +68,16 @@
                     @endforeach
                 </div>
             @endif
+
+            <template x-if="uploadError">
+                <div class="mt-3 text-xs text-rose-700 bg-rose-50 border border-rose-200 rounded-lg p-2.5 flex items-center gap-2">
+                    <svg class="w-4 h-4 shrink-0 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 11-18 0z"/></svg>
+                    <span x-text="uploadError"></span>
+                </div>
+            </template>
+
             @error('photos') <span class="text-rose-600 text-xs block mt-1">{{ $message }}</span> @enderror
+            @error('photos.*') <span class="text-rose-600 text-xs block mt-1">{{ $message }}</span> @enderror
         </div>
 
         <!-- Main Product Information Grid -->

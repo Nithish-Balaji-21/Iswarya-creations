@@ -72,10 +72,10 @@ class ProductController extends Controller
         // Sorting
         $sort = $request->input('sort', 'newest');
         match ($sort) {
-            'price_asc' => $query->orderByRaw('COALESCE(discount_price, price) ASC'),
-            'price_desc' => $query->orderByRaw('COALESCE(discount_price, price) DESC'),
-            'popularity' => $query->orderBy('view_count', 'desc'),
-            default => $query->orderBy('published_at', 'desc')->orderBy('id', 'desc'),
+            'price_asc' => $query->reorder()->orderByRaw('COALESCE(discount_price, price) ASC'),
+            'price_desc' => $query->reorder()->orderByRaw('COALESCE(discount_price, price) DESC'),
+            'popularity' => $query->reorder()->orderBy('view_count', 'desc'),
+            default => $query->reorder()->orderBy('products.published_at', 'desc')->orderBy('products.id', 'desc'),
         };
 
         $perPage = (int) config('iswarya.per_page', 24);
@@ -86,6 +86,7 @@ class ProductController extends Controller
             ->whereHas('categories', fn ($q) => $q->where('categories.id', $category->id))
             ->whereNotNull('colour')
             ->distinct()
+            ->reorder()
             ->pluck('colour');
 
         // Sibling & cross categories for secondary filtering
@@ -119,15 +120,16 @@ class ProductController extends Controller
 
         $sort = $request->input('sort', 'newest');
         match ($sort) {
-            'price_asc' => $query->orderByRaw('COALESCE(discount_price, price) ASC'),
-            'price_desc' => $query->orderByRaw('COALESCE(discount_price, price) DESC'),
-            'popularity' => $query->orderBy('view_count', 'desc'),
-            default => $query->orderBy('published_at', 'desc'),
+            'price_asc' => $query->reorder()->orderByRaw('COALESCE(discount_price, price) ASC'),
+            'price_desc' => $query->reorder()->orderByRaw('COALESCE(discount_price, price) DESC'),
+            'popularity' => $query->reorder()->orderBy('view_count', 'desc'),
+            default => $query->reorder()->orderBy('published_at', 'desc')->orderBy('id', 'desc'),
         };
 
         $products = $query->paginate(config('iswarya.per_page', 24))->withQueryString();
 
         $availableColours = Product::newArrivals(30)
+            ->reorder()
             ->whereNotNull('colour')
             ->distinct()
             ->pluck('colour');

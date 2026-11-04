@@ -22,9 +22,9 @@ class ImageOptimizationService
     ];
 
     /**
-     * Max upload file size in bytes (12 MB).
+     * Max upload file size in bytes (25 MB).
      */
-    protected int $maxSizeBytes = 12 * 1024 * 1024;
+    protected int $maxSizeBytes = 25 * 1024 * 1024;
 
     /**
      * Target resolutions in 4:5 aspect ratio.
