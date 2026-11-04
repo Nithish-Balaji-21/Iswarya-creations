@@ -51,6 +51,26 @@ class Setting extends Model
         return static::get('instagram_url', config('iswarya.instagram_url'));
     }
 
+    public static function instagramHandle(): string
+    {
+        return static::get('instagram_handle', config('iswarya.instagram_handle', '@iswaryasilks.cbe'));
+    }
+
+    public static function googleMapsUrl(): string
+    {
+        return static::get('google_maps_url', config('iswarya.google_maps_url', 'https://share.google/qQvd7CVGrSjmYrHhM'));
+    }
+
+    public static function contactEmail(): string
+    {
+        return static::get('contact_email', config('iswarya.contact_email', 'iswaryacreations1975@gmail.com'));
+    }
+
+    public static function contactPhone(): string
+    {
+        return static::get('contact_phone', config('iswarya.contact_phone', '+91 89739 48912'));
+    }
+
     public static function announcementText(): string
     {
         return static::get('announcement_text', config('iswarya.default_announcement'));

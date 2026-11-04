@@ -15,6 +15,7 @@ class AdminSettingController extends Controller
         $settings = [
             'whatsapp_number' => Setting::get('whatsapp_number', config('iswarya.whatsapp_number')),
             'store_address' => Setting::get('store_address', config('iswarya.store_address')),
+            'google_maps_url' => Setting::get('google_maps_url', config('iswarya.google_maps_url')),
             'instagram_url' => Setting::get('instagram_url', config('iswarya.instagram_url')),
             'announcement_text' => Setting::get('announcement_text', config('iswarya.default_announcement')),
             'contact_phone' => Setting::get('contact_phone', config('iswarya.contact_phone')),
@@ -29,6 +30,7 @@ class AdminSettingController extends Controller
         $validated = $request->validate([
             'whatsapp_number' => ['required', 'string'],
             'store_address' => ['required', 'string'],
+            'google_maps_url' => ['nullable', 'url'],
             'instagram_url' => ['required', 'url'],
             'announcement_text' => ['required', 'string', 'max:255'],
             'contact_phone' => ['nullable', 'string'],

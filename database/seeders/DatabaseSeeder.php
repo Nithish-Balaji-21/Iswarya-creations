@@ -37,10 +37,11 @@ class DatabaseSeeder extends Seeder
         $settings = [
             'whatsapp_number' => '918973948912',
             'store_address' => '124, Avinashi Road, Peelamedu, Coimbatore - 641004, Tamil Nadu, India',
-            'instagram_url' => 'https://www.instagram.com/iswaryasilks/',
+            'google_maps_url' => 'https://share.google/qQvd7CVGrSjmYrHhM',
+            'instagram_url' => 'https://www.instagram.com/iswaryasilks.cbe?psln=MXJleGxzaHhpNmY0MQ==',
             'announcement_text' => 'Free Express Shipping Across India | Handloom Certified Pure Silk',
             'contact_phone' => '+91 89739 48912',
-            'contact_email' => 'concierge@iswaryasilks.com',
+            'contact_email' => 'iswaryacreations1975@gmail.com',
         ];
         foreach ($settings as $k => $v) {
             Setting::updateOrCreate(['key' => $k], ['value' => $v]);

@@ -49,12 +49,22 @@
                 @error('store_address') <span class="text-rose-600 text-[11px]">{{ $message }}</span> @enderror
             </div>
 
+            <!-- Google Maps / Location URL -->
+            <div>
+                <label class="block font-semibold text-stone-700 uppercase tracking-wider mb-1">
+                    Google Maps / Location Link
+                </label>
+                <input type="url" name="google_maps_url" value="{{ old('google_maps_url', $settings['google_maps_url'] ?? '') }}" placeholder="https://share.google/qQvd7CVGrSjmYrHhM" class="w-full text-xs px-3.5 py-2.5 border border-rose-200 rounded-lg">
+                <p class="text-[11px] text-stone-400 mt-1">Direct Google Maps link for patrons seeking showroom directions (e.g. <code>https://share.google/qQvd7CVGrSjmYrHhM</code>).</p>
+                @error('google_maps_url') <span class="text-rose-600 text-[11px]">{{ $message }}</span> @enderror
+            </div>
+
             <!-- Instagram URL -->
             <div>
                 <label class="block font-semibold text-stone-700 uppercase tracking-wider mb-1">
                     Instagram Profile URL <span class="text-rose-600">*</span>
                 </label>
-                <input type="url" name="instagram_url" value="{{ old('instagram_url', $settings['instagram_url']) }}" required placeholder="https://www.instagram.com/iswaryasilks" class="w-full text-xs px-3.5 py-2.5 border border-rose-200 rounded-lg">
+                <input type="url" name="instagram_url" value="{{ old('instagram_url', $settings['instagram_url']) }}" required placeholder="https://www.instagram.com/iswaryasilks.cbe?psln=MXJleGxzaHhpNmY0MQ==" class="w-full text-xs px-3.5 py-2.5 border border-rose-200 rounded-lg">
                 @error('instagram_url') <span class="text-rose-600 text-[11px]">{{ $message }}</span> @enderror
             </div>
 
@@ -67,7 +77,7 @@
 
                 <div>
                     <label class="block font-semibold text-stone-700 uppercase tracking-wider mb-1">Display Concierge Email</label>
-                    <input type="email" name="contact_email" value="{{ old('contact_email', $settings['contact_email']) }}" class="w-full text-xs px-3.5 py-2.5 border border-rose-200 rounded-lg">
+                    <input type="email" name="contact_email" value="{{ old('contact_email', $settings['contact_email']) }}" placeholder="iswaryacreations1975@gmail.com" class="w-full text-xs px-3.5 py-2.5 border border-rose-200 rounded-lg">
                 </div>
             </div>
 

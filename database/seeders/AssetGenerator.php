@@ -98,7 +98,7 @@ class AssetGenerator
                 imagerectangle($img, 20, 20, 380, 380, $white);
                 imagerectangle($img, 24, 24, 376, 376, $gold);
 
-                imagestring($img, 4, 80, 180, '@iswaryasilks', $white);
+                imagestring($img, 4, 80, 180, '@iswaryasilks.cbe', $white);
                 imagestring($img, 3, 100, 210, $p['title'], $gold);
 
                 imagewebp($img, $instaPath, 85);

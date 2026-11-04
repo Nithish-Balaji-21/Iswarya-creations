@@ -326,7 +326,9 @@
     <!-- 6. Instagram Gallery (Manual / Static Luxury Grid) -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div class="text-center mb-10">
-            <span class="text-xs uppercase tracking-widest text-gold font-semibold">@iswaryasilks</span>
+            <a href="{{ \App\Models\Setting::instagramUrl() }}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs uppercase tracking-widest text-gold hover:text-maroon font-semibold transition-colors">
+                {{ \App\Models\Setting::instagramHandle() }}
+            </a>
             <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 font-jost tracking-tight mt-1">
                 Follow The Loom on Instagram
             </h2>

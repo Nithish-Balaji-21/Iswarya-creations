@@ -20,8 +20,9 @@ class PageController extends Controller
         $whatsAppNumber = Setting::whatsappNumber();
         $storeAddress = Setting::storeAddress();
         $instagramUrl = Setting::instagramUrl();
+        $googleMapsUrl = Setting::googleMapsUrl();
 
-        return view('pages.contact', compact('whatsAppNumber', 'storeAddress', 'instagramUrl'));
+        return view('pages.contact', compact('whatsAppNumber', 'storeAddress', 'instagramUrl', 'googleMapsUrl'));
     }
 
     public function sitemap(): Response

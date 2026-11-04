@@ -25,9 +25,11 @@ return [
     */
     'whatsapp_number' => env('ISWARYA_WHATSAPP_NUMBER', '918973948912'),
     'contact_phone' => '+91 89739 48912',
-    'contact_email' => 'care@iswaryasilks.com',
+    'contact_email' => 'iswaryacreations1975@gmail.com',
     'store_address' => '124, Avinashi Road, Peelamedu, Coimbatore, Tamil Nadu 641004, India',
-    'instagram_url' => 'https://www.instagram.com/iswaryasilks',
+    'google_maps_url' => 'https://share.google/qQvd7CVGrSjmYrHhM',
+    'instagram_url' => 'https://www.instagram.com/iswaryasilks.cbe?psln=MXJleGxzaHhpNmY0MQ==',
+    'instagram_handle' => '@iswaryasilks.cbe',
 
     /*
     |--------------------------------------------------------------------------
