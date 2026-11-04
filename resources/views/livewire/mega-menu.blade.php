@@ -68,10 +68,16 @@
                             </h4>
                             <ul class="space-y-2 text-xs">
                                 @forelse($categoriesByGroup['weave'] as $cat)
-                                    @if(is_object($cat))
+                                    @php
+                                        $catName = is_array($cat) ? ($cat['name'] ?? null) : ($cat->name ?? null);
+                                        $catSlug = is_array($cat) ? ($cat['slug'] ?? null) : ($cat->slug ?? null);
+                                        $rawGroup = is_array($cat) ? ($cat['group'] ?? null) : ($cat->group ?? null);
+                                        $catGroup = is_object($rawGroup) ? $rawGroup->value : (string) $rawGroup;
+                                    @endphp
+                                    @if($catName && $catSlug)
                                         <li>
-                                            <a href="{{ route('categories.show', ['group' => is_object($cat->group) ? $cat->group->value : $cat->group, 'slug' => $cat->slug]) }}" class="text-stone-600 hover:text-maroon hover:translate-x-1 transition-all inline-block">
-                                                {{ $cat->name }}
+                                            <a href="{{ route('categories.show', ['group' => $catGroup, 'slug' => $catSlug]) }}" class="text-stone-600 hover:text-maroon hover:translate-x-1 transition-all inline-block">
+                                                {{ $catName }}
                                             </a>
                                         </li>
                                     @endif
@@ -88,10 +94,16 @@
                             </h4>
                             <ul class="space-y-2 text-xs">
                                 @forelse($categoriesByGroup['fabric'] as $cat)
-                                    @if(is_object($cat))
+                                    @php
+                                        $catName = is_array($cat) ? ($cat['name'] ?? null) : ($cat->name ?? null);
+                                        $catSlug = is_array($cat) ? ($cat['slug'] ?? null) : ($cat->slug ?? null);
+                                        $rawGroup = is_array($cat) ? ($cat['group'] ?? null) : ($cat->group ?? null);
+                                        $catGroup = is_object($rawGroup) ? $rawGroup->value : (string) $rawGroup;
+                                    @endphp
+                                    @if($catName && $catSlug)
                                         <li>
-                                            <a href="{{ route('categories.show', ['group' => is_object($cat->group) ? $cat->group->value : $cat->group, 'slug' => $cat->slug]) }}" class="text-stone-600 hover:text-maroon hover:translate-x-1 transition-all inline-block">
-                                                {{ $cat->name }}
+                                            <a href="{{ route('categories.show', ['group' => $catGroup, 'slug' => $catSlug]) }}" class="text-stone-600 hover:text-maroon hover:translate-x-1 transition-all inline-block">
+                                                {{ $catName }}
                                             </a>
                                         </li>
                                     @endif
@@ -108,10 +120,16 @@
                             </h4>
                             <ul class="space-y-2 text-xs">
                                 @forelse($categoriesByGroup['occasion'] as $cat)
-                                    @if(is_object($cat))
+                                    @php
+                                        $catName = is_array($cat) ? ($cat['name'] ?? null) : ($cat->name ?? null);
+                                        $catSlug = is_array($cat) ? ($cat['slug'] ?? null) : ($cat->slug ?? null);
+                                        $rawGroup = is_array($cat) ? ($cat['group'] ?? null) : ($cat->group ?? null);
+                                        $catGroup = is_object($rawGroup) ? $rawGroup->value : (string) $rawGroup;
+                                    @endphp
+                                    @if($catName && $catSlug)
                                         <li>
-                                            <a href="{{ route('categories.show', ['group' => is_object($cat->group) ? $cat->group->value : $cat->group, 'slug' => $cat->slug]) }}" class="text-stone-600 hover:text-maroon hover:translate-x-1 transition-all inline-block">
-                                                {{ $cat->name }}
+                                            <a href="{{ route('categories.show', ['group' => $catGroup, 'slug' => $catSlug]) }}" class="text-stone-600 hover:text-maroon hover:translate-x-1 transition-all inline-block">
+                                                {{ $catName }}
                                             </a>
                                         </li>
                                     @endif
@@ -125,9 +143,14 @@
 
                 <!-- Kanjeevaram Sarees Direct Link -->
                 @php
-                    $kanjeevaramCategory = $categoriesByGroup['kanjeevaram']->first();
-                    $kanjeevaramUrl = $kanjeevaramCategory 
-                        ? route('categories.show', ['group' => 'kanjeevaram', 'slug' => $kanjeevaramCategory->slug]) 
+                    $kanjeevaramFirst = is_iterable($categoriesByGroup['kanjeevaram']) 
+                        ? (is_object($categoriesByGroup['kanjeevaram']) && method_exists($categoriesByGroup['kanjeevaram'], 'first') 
+                            ? $categoriesByGroup['kanjeevaram']->first() 
+                            : ($categoriesByGroup['kanjeevaram'][0] ?? null))
+                        : null;
+                    $kanjeevaramSlug = is_array($kanjeevaramFirst) ? ($kanjeevaramFirst['slug'] ?? null) : ($kanjeevaramFirst?->slug ?? null);
+                    $kanjeevaramUrl = $kanjeevaramSlug 
+                        ? route('categories.show', ['group' => 'kanjeevaram', 'slug' => $kanjeevaramSlug]) 
                         : route('products.new-arrivals');
                 @endphp
                 <a href="{{ $kanjeevaramUrl }}" class="hover:text-maroon transition-colors text-maroon font-medium">
@@ -266,13 +289,25 @@
             <div class="py-2 border-y border-rose-200/50">
                 <p class="text-xs uppercase font-semibold text-maroon mb-2">Collections</p>
                 @foreach($categoriesByGroup['kanjeevaram'] as $cat)
-                    @if(is_object($cat))
-                        <a href="{{ route('categories.show', ['group' => is_object($cat->group) ? $cat->group->value : $cat->group, 'slug' => $cat->slug]) }}" class="block py-1 pl-2 text-xs text-stone-600 hover:text-maroon">{{ $cat->name }}</a>
+                    @php
+                        $catName = is_array($cat) ? ($cat['name'] ?? null) : ($cat->name ?? null);
+                        $catSlug = is_array($cat) ? ($cat['slug'] ?? null) : ($cat->slug ?? null);
+                        $rawGroup = is_array($cat) ? ($cat['group'] ?? null) : ($cat->group ?? null);
+                        $catGroup = is_object($rawGroup) ? $rawGroup->value : (string) $rawGroup;
+                    @endphp
+                    @if($catName && $catSlug)
+                        <a href="{{ route('categories.show', ['group' => $catGroup, 'slug' => $catSlug]) }}" class="block py-1 pl-2 text-xs text-stone-600 hover:text-maroon">{{ $catName }}</a>
                     @endif
                 @endforeach
                 @foreach($categoriesByGroup['weave']->take(4) as $cat)
-                    @if(is_object($cat))
-                        <a href="{{ route('categories.show', ['group' => is_object($cat->group) ? $cat->group->value : $cat->group, 'slug' => $cat->slug]) }}" class="block py-1 pl-2 text-xs text-stone-600 hover:text-maroon">{{ $cat->name }}</a>
+                    @php
+                        $catName = is_array($cat) ? ($cat['name'] ?? null) : ($cat->name ?? null);
+                        $catSlug = is_array($cat) ? ($cat['slug'] ?? null) : ($cat->slug ?? null);
+                        $rawGroup = is_array($cat) ? ($cat['group'] ?? null) : ($cat->group ?? null);
+                        $catGroup = is_object($rawGroup) ? $rawGroup->value : (string) $rawGroup;
+                    @endphp
+                    @if($catName && $catSlug)
+                        <a href="{{ route('categories.show', ['group' => $catGroup, 'slug' => $catSlug]) }}" class="block py-1 pl-2 text-xs text-stone-600 hover:text-maroon">{{ $catName }}</a>
                     @endif
                 @endforeach
             </div>

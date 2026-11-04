@@ -76,23 +76,53 @@ class MegaMenu extends Component
 
     public function render()
     {
-        // Cache category groups hierarchy; auto-invalidated when categories are saved/deleted
-        $categoriesByGroup = Cache::remember(Category::MEGA_MENU_CACHE_KEY, 86400, function () {
-            $all = Category::active()->ordered()->get();
+        $keys = ['weave', 'fabric', 'occasion', 'kanjeevaram', 'other'];
+
+        $fetchGroups = function () {
+            $all = Category::active()->ordered()->get(['id', 'name', 'slug', 'group']);
+
+            $mapCategory = fn ($c) => [
+                'id' => $c->id,
+                'name' => $c->name,
+                'slug' => $c->slug,
+                'group' => $c->group instanceof CategoryGroup ? $c->group->value : (string) $c->group,
+            ];
 
             return [
-                'weave' => $all->filter(fn ($c) => ($c->group instanceof CategoryGroup ? $c->group : CategoryGroup::tryFrom($c->group)) === CategoryGroup::Weave)->values(),
-                'fabric' => $all->filter(fn ($c) => ($c->group instanceof CategoryGroup ? $c->group : CategoryGroup::tryFrom($c->group)) === CategoryGroup::Fabric)->values(),
-                'occasion' => $all->filter(fn ($c) => ($c->group instanceof CategoryGroup ? $c->group : CategoryGroup::tryFrom($c->group)) === CategoryGroup::Occasion)->values(),
-                'kanjeevaram' => $all->filter(fn ($c) => ($c->group instanceof CategoryGroup ? $c->group : CategoryGroup::tryFrom($c->group)) === CategoryGroup::Kanjeevaram)->values(),
-                'other' => $all->filter(fn ($c) => ($c->group instanceof CategoryGroup ? $c->group : CategoryGroup::tryFrom($c->group)) === CategoryGroup::Other)->values(),
+                'weave' => $all->filter(fn ($c) => ($c->group instanceof CategoryGroup ? $c->group : CategoryGroup::tryFrom($c->group)) === CategoryGroup::Weave)->map($mapCategory)->values()->all(),
+                'fabric' => $all->filter(fn ($c) => ($c->group instanceof CategoryGroup ? $c->group : CategoryGroup::tryFrom($c->group)) === CategoryGroup::Fabric)->map($mapCategory)->values()->all(),
+                'occasion' => $all->filter(fn ($c) => ($c->group instanceof CategoryGroup ? $c->group : CategoryGroup::tryFrom($c->group)) === CategoryGroup::Occasion)->map($mapCategory)->values()->all(),
+                'kanjeevaram' => $all->filter(fn ($c) => ($c->group instanceof CategoryGroup ? $c->group : CategoryGroup::tryFrom($c->group)) === CategoryGroup::Kanjeevaram)->map($mapCategory)->values()->all(),
+                'other' => $all->filter(fn ($c) => ($c->group instanceof CategoryGroup ? $c->group : CategoryGroup::tryFrom($c->group)) === CategoryGroup::Other)->map($mapCategory)->values()->all(),
             ];
-        });
+        };
+
+        // Cache category groups hierarchy; auto-invalidated when categories are saved/deleted
+        $categoriesByGroup = Cache::remember(Category::MEGA_MENU_CACHE_KEY, 86400, $fetchGroups);
+
+        // Defensive guard: if cached data is malformed or corrupted by incomplete class deserialization
+        $isCorrupt = ! is_array($categoriesByGroup);
+        if (! $isCorrupt) {
+            foreach ($keys as $key) {
+                if (! isset($categoriesByGroup[$key]) || ! is_iterable($categoriesByGroup[$key]) || $categoriesByGroup[$key] instanceof \__PHP_Incomplete_Class) {
+                    $isCorrupt = true;
+                    break;
+                }
+            }
+        }
+
+        if ($isCorrupt) {
+            Cache::forget(Category::MEGA_MENU_CACHE_KEY);
+            $categoriesByGroup = $fetchGroups();
+            Cache::put(Category::MEGA_MENU_CACHE_KEY, $categoriesByGroup, 86400);
+        }
 
         // Defensive guard: ensure each group is an iterable Collection
-        foreach (['weave', 'fabric', 'occasion', 'kanjeevaram', 'other'] as $key) {
+        foreach ($keys as $key) {
             if (! isset($categoriesByGroup[$key]) || ! is_iterable($categoriesByGroup[$key])) {
                 $categoriesByGroup[$key] = collect();
+            } else {
+                $categoriesByGroup[$key] = collect($categoriesByGroup[$key]);
             }
         }
 
