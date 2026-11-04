@@ -142,6 +142,63 @@
                             <span>Video View</span>
                         </a>
                     </div>
+
+                    <!-- Share on WhatsApp with Family & Friends -->
+                    @php
+                        $shareTitle = $product->name . ' – Iswarya Silks';
+                        $shareCaption = "Look at this handcrafted silk saree from Iswarya Silks: " . $product->name . " (SKU: " . $product->sku . ")";
+                        if ($product->formatted_price) {
+                            $shareCaption .= " listed at " . $product->formatted_price;
+                        }
+                        $shareCaption .= ". View here: " . route('products.show', $product->slug);
+                        $waShareUrl = "https://api.whatsapp.com/send?text=" . rawurlencode($shareCaption . " | Photo: " . $product->primary_image_url);
+                    @endphp
+                    <button type="button"
+                            x-data="{
+                                sharing: false,
+                                async share() {
+                                    this.sharing = true;
+                                    const title = @js($shareTitle);
+                                    const text = @js($shareCaption);
+                                    const imageUrl = @js($product->primary_image_url);
+                                    const fallbackUrl = @js($waShareUrl);
+
+                                    // Try native Web Share API with image file attachment (opens WhatsApp media + caption view on mobile)
+                                    if (navigator.share) {
+                                        try {
+                                            const res = await fetch(imageUrl);
+                                            const blob = await res.blob();
+                                            const mimeType = blob.type || 'image/jpeg';
+                                            const ext = mimeType.includes('webp') ? 'webp' : (mimeType.includes('png') ? 'png' : 'jpg');
+                                            const file = new File([blob], 'saree-' + @js($product->sku) + '.' + ext, { type: mimeType });
+
+                                            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                                                await navigator.share({
+                                                    files: [file],
+                                                    title: title,
+                                                    text: text
+                                                });
+                                                this.sharing = false;
+                                                return;
+                                            }
+                                        } catch (e) {
+                                            // Fallback to URL if file sharing is rejected or unsupported
+                                        }
+                                    }
+
+                                    // Desktop or standard fallback: open WhatsApp URL
+                                    this.sharing = false;
+                                    window.open(fallbackUrl, '_blank', 'noopener,noreferrer');
+                                }
+                            }"
+                            @click="share()"
+                            :disabled="sharing"
+                            class="btn-pill w-full py-2.5 px-4 text-xs font-semibold tracking-wider uppercase border border-emerald-200 bg-emerald-50/70 hover:bg-emerald-100/70 text-emerald-800 transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs">
+                        <svg class="w-4 h-4 fill-current text-emerald-600" viewBox="0 0 24 24">
+                            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.861.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/>
+                        </svg>
+                        <span x-text="sharing ? 'Preparing Media...' : 'Share Saree on WhatsApp'">Share Saree on WhatsApp</span>
+                    </button>
                 </div>
 
                 <!-- Handloom Guarantee Notice -->
@@ -197,7 +254,7 @@
                                 <svg class="w-4 h-4 transition-transform duration-200" :class="openTab === 'desc' ? 'rotate-180 text-maroon' : 'text-stone-400'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                             </button>
                             <div x-show="openTab === 'desc'" x-transition class="mt-3 text-xs text-stone-600 leading-relaxed prose prose-stone max-w-none" style="display: none;">
-                                {!! clean($product->description) !!}
+                                {!! strip_tags($product->description, '<p><br><strong><em><b><i><ul><ol><li><span>') !!}
                             </div>
                         </div>
                     @endif

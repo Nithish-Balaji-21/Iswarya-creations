@@ -59,6 +59,8 @@ class EnquiryTest extends TestCase
         $this->assertStringStartsWith('https://wa.me/918973948912?text=', $targetUrl);
         $this->assertStringContainsString('IC-0001', $targetUrl);
         $this->assertStringContainsString('listed%20at%20%E2%82%B942%2C500', $targetUrl); // Indian currency grouping ₹42,500
+        $this->assertStringContainsString('Image', rawurldecode($targetUrl));
+        $this->assertStringContainsString($product->primary_image_url, rawurldecode($targetUrl));
     }
 
     public function test_enquiry_omits_listed_at_clause_when_price_is_null(): void

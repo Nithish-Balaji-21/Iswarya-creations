@@ -66,6 +66,12 @@ class EnquiryService
 
         $message .= ". Link: {$pageUrl}";
 
+        // Include high-resolution saree image link for WhatsApp rich media preview and showroom visual matching
+        $imageUrl = $product->primary_image_url;
+        if ($imageUrl) {
+            $message .= " | Image: {$imageUrl}";
+        }
+
         // Normalize whatsapp number (strip non-digits)
         $cleanNumber = preg_replace('/[^0-9]/', '', $whatsAppNumber);
         $whatsAppUrl = "https://wa.me/{$cleanNumber}?text=".rawurlencode($message);
