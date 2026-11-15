@@ -6,11 +6,11 @@
 @section('content')
 <div class="space-y-8">
     <!-- Top Greeting Banner -->
-    <div class="bg-white rounded-2xl border border-stone-200 p-6 sm:p-8 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+    <div class="bg-white rounded-2xl border border-rose-100 p-6 sm:p-8 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
             <div class="flex items-center gap-2">
                 <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span class="text-xs uppercase font-bold tracking-widest text-gold-dark">Live Storefront Status: Active</span>
+                <span class="text-xs uppercase font-bold tracking-widest text-gold font-semibold">Live Storefront Status: Active</span>
             </div>
             <h1 class="text-2xl sm:text-3xl font-bold text-stone-900 font-jost mt-1">Showroom Operations Center</h1>
             <p class="text-xs text-stone-500 mt-1">
@@ -18,14 +18,14 @@
             </p>
         </div>
 
-        <div class="flex flex-wrap items-center gap-3">
+        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
             <a href="{{ route('admin.products.create') }}" 
-               class="btn-pill btn-maroon px-5 py-2.5 text-xs font-semibold tracking-wider uppercase flex items-center gap-2 shadow-md">
-                <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+               class="btn-pill btn-maroon w-full sm:w-auto px-5 py-2.5 text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-transform active:scale-95">
+                <svg class="w-4 h-4 text-gold-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 <span>Add New Saree</span>
             </a>
             <a href="{{ route('admin.settings.edit') }}" 
-               class="btn-pill border border-stone-300 bg-stone-50 hover:bg-stone-100 text-stone-700 px-4 py-2.5 text-xs font-semibold tracking-wider uppercase flex items-center gap-2 transition-colors">
+               class="btn-pill border border-rose-200 bg-brand-pearl hover:bg-rose-50 text-stone-700 hover:text-maroon w-full sm:w-auto px-4 py-2.5 text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 transition-colors">
                 <svg class="w-4 h-4 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/></svg>
                 <span>Store Settings</span>
             </a>
@@ -35,7 +35,7 @@
     <!-- 4 High-Density Inventory Metric Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <!-- Card 1: Active Sarees Live -->
-        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs hover:border-maroon/30 transition-colors">
+        <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-xs hover:border-maroon/30 transition-colors">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-[11px] font-bold uppercase tracking-wider text-stone-400">Live In Showroom</p>
@@ -45,14 +45,14 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                 </div>
             </div>
-            <div class="mt-3 pt-3 border-t border-stone-100 flex items-center justify-between text-[11px]">
+            <div class="mt-3 pt-3 border-t border-rose-50 flex items-center justify-between text-[11px]">
                 <span class="text-stone-500">Published & available for order</span>
                 <a href="{{ route('admin.products.index') }}" class="text-maroon font-semibold hover:underline">View &rarr;</a>
             </div>
         </div>
 
         <!-- Card 2: Total Sarees in Catalog -->
-        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs hover:border-maroon/30 transition-colors">
+        <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-xs hover:border-maroon/30 transition-colors">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-[11px] font-bold uppercase tracking-wider text-stone-400">Total Sarees</p>
@@ -62,14 +62,14 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
                 </div>
             </div>
-            <div class="mt-3 pt-3 border-t border-stone-100 flex items-center justify-between text-[11px]">
+            <div class="mt-3 pt-3 border-t border-rose-50 flex items-center justify-between text-[11px]">
                 <span class="text-stone-500">{{ $draftSareesCount }} unpublished drafts</span>
                 <a href="{{ route('admin.products.create') }}" class="text-maroon font-semibold hover:underline">+ Add &rarr;</a>
             </div>
         </div>
 
         <!-- Card 3: Sold Out Sarees -->
-        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs hover:border-maroon/30 transition-colors">
+        <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-xs hover:border-maroon/30 transition-colors">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-[11px] font-bold uppercase tracking-wider text-stone-400">Sold Out Sarees</p>
@@ -79,26 +79,26 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
                 </div>
             </div>
-            <div class="mt-3 pt-3 border-t border-stone-100 flex items-center justify-between text-[11px]">
+            <div class="mt-3 pt-3 border-t border-rose-50 flex items-center justify-between text-[11px]">
                 <span class="text-stone-500">Marked as sold out</span>
                 <a href="{{ route('admin.products.index') }}?status=sold_out" class="text-amber-700 font-semibold hover:underline">Manage &rarr;</a>
             </div>
         </div>
 
         <!-- Card 4: Categories & Banners -->
-        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs hover:border-maroon/30 transition-colors">
+        <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-xs hover:border-maroon/30 transition-colors">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-[11px] font-bold uppercase tracking-wider text-stone-400">Active Categories</p>
                     <p class="text-3xl font-bold text-stone-900 font-jost mt-1">{{ $categoriesCount }}</p>
                 </div>
-                <div class="w-11 h-11 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center">
+                <div class="w-11 h-11 rounded-xl bg-gold-light/40 text-gold-dark flex items-center justify-center">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
                 </div>
             </div>
-            <div class="mt-3 pt-3 border-t border-stone-100 flex items-center justify-between text-[11px]">
+            <div class="mt-3 pt-3 border-t border-rose-50 flex items-center justify-between text-[11px]">
                 <span class="text-stone-500">{{ $bannersCount }} homepage hero banners</span>
-                <a href="{{ route('admin.categories.index') }}" class="text-purple-700 font-semibold hover:underline">Manage &rarr;</a>
+                <a href="{{ route('admin.categories.index') }}" class="text-maroon font-semibold hover:underline">Manage &rarr;</a>
             </div>
         </div>
     </div>
@@ -106,8 +106,8 @@
     <!-- Main Content Split: Recent Sarees (Left) & Storefront Configuration (Right) -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <!-- Left: Recently Added Sarees (Span 8) -->
-        <div class="lg:col-span-8 bg-white rounded-2xl border border-stone-200 shadow-xs p-6 space-y-4">
-            <div class="flex items-center justify-between pb-3 border-b border-stone-100">
+        <div class="lg:col-span-8 bg-white rounded-2xl border border-rose-100 shadow-xs p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-rose-50">
                 <div>
                     <h3 class="text-base font-bold text-stone-900 font-jost">Recent Saree Additions</h3>
                     <p class="text-xs text-stone-500">Quickly toggle stock availability or edit freshly added sarees.</p>
@@ -118,11 +118,11 @@
                 </a>
             </div>
 
-            <!-- Sarees Table -->
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs">
+            <!-- Sarees Table (Responsive Scroll) -->
+            <div class="overflow-x-auto -mx-5 sm:mx-0 px-5 sm:px-0">
+                <table class="w-full text-left text-xs min-w-[550px]">
                     <thead>
-                        <tr class="text-[11px] font-bold uppercase tracking-wider text-stone-400 border-b border-stone-100 pb-2">
+                        <tr class="text-[10px] font-bold uppercase tracking-wider text-stone-400 border-b border-rose-50 pb-2">
                             <th class="py-2.5 font-bold">Saree Details</th>
                             <th class="py-2.5 font-bold">Price</th>
                             <th class="py-2.5 font-bold">Categories</th>
@@ -130,17 +130,17 @@
                             <th class="py-2.5 font-bold text-right">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-stone-100">
+                    <tbody class="divide-y divide-rose-50">
                         @forelse($recentSarees as $product)
-                            <tr class="hover:bg-stone-50/70 transition-colors">
+                            <tr class="hover:bg-rose-50/30 transition-colors">
                                 <td class="py-3 pr-3">
                                     <div class="flex items-center gap-3">
                                         <img src="{{ $product->primary_image_url }}" 
                                              alt="{{ $product->name }}" 
-                                             class="w-12 h-14 object-cover rounded-lg border border-stone-200 shrink-0">
+                                             class="w-12 h-14 object-cover rounded-lg border border-rose-100 shrink-0">
                                         <div class="min-w-0">
                                             <p class="font-bold text-stone-900 truncate max-w-xs">{{ $product->name }}</p>
-                                            <span class="inline-block font-mono text-[10px] text-stone-500 bg-stone-100 px-1.5 py-0.5 rounded mt-0.5">
+                                            <span class="inline-block font-mono text-[10px] text-stone-500 bg-brand-pearl px-1.5 py-0.5 rounded mt-0.5">
                                                 {{ $product->sku }}
                                             </span>
                                         </div>
@@ -152,7 +152,7 @@
                                 <td class="py-3">
                                     <div class="flex flex-wrap gap-1 max-w-xs">
                                         @foreach($product->categories->take(2) as $category)
-                                            <span class="inline-block text-[10px] bg-rose-50 text-maroon px-2 py-0.5 rounded-full font-medium">
+                                            <span class="inline-block text-[10px] bg-rose-50 text-maroon border border-rose-100 px-2 py-0.5 rounded-full font-medium">
                                                 {{ $category->name }}
                                             </span>
                                         @endforeach
@@ -200,8 +200,8 @@
         <!-- Right: Live Website Settings & Quick Actions (Span 4) -->
         <div class="lg:col-span-4 space-y-6">
             <!-- Website Configuration Card -->
-            <div class="bg-white rounded-2xl border border-stone-200 shadow-xs p-6 space-y-4">
-                <div class="flex items-center justify-between pb-3 border-b border-stone-100">
+            <div class="bg-white rounded-2xl border border-rose-100 shadow-xs p-5 sm:p-6 space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-rose-50">
                     <h3 class="text-base font-bold text-stone-900 font-jost">Website Configuration</h3>
                     <a href="{{ route('admin.settings.edit') }}" class="text-xs font-semibold text-maroon hover:underline">Edit</a>
                 </div>
@@ -219,7 +219,7 @@
                 </div>
 
                 <!-- Showroom Location -->
-                <div class="border border-stone-200 rounded-xl p-3.5 space-y-1 text-xs">
+                <div class="border border-rose-100 rounded-xl p-3.5 space-y-1 text-xs bg-brand-warm/30">
                     <span class="text-[10px] font-bold uppercase tracking-wider text-stone-400 block">Showroom Location</span>
                     <p class="text-stone-800 font-medium leading-relaxed">
                         {{ $storeSettings['store_address'] }}
@@ -233,29 +233,29 @@
                 </div>
 
                 <!-- Announcement Bar Preview -->
-                <div class="border border-stone-200 rounded-xl p-3.5 space-y-1.5 text-xs">
+                <div class="border border-rose-100 rounded-xl p-3.5 space-y-1.5 text-xs bg-brand-warm/30">
                     <div class="flex items-center justify-between">
                         <span class="text-[10px] font-bold uppercase tracking-wider text-stone-400">Storefront Announcement</span>
                         <span class="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full {{ $storeSettings['announcement_enabled'] ? 'bg-emerald-100 text-emerald-800' : 'bg-stone-100 text-stone-500' }}">
                             {{ $storeSettings['announcement_enabled'] ? 'Enabled' : 'Disabled' }}
                         </span>
                     </div>
-                    <p class="text-stone-700 italic bg-stone-50 p-2 rounded border border-stone-100 text-[11px]">
+                    <p class="text-stone-700 italic bg-white p-2 rounded border border-rose-100 text-[11px]">
                         "{{ $storeSettings['announcement_text'] }}"
                     </p>
                 </div>
 
                 <a href="{{ route('admin.settings.edit') }}" 
-                   class="btn-pill btn-maroon w-full py-2.5 text-xs font-semibold tracking-wider uppercase text-center block shadow-xs">
+                   class="btn-pill btn-maroon w-full py-2.5 text-xs font-semibold tracking-wider uppercase text-center block shadow-xs hover:shadow-md transition-transform active:scale-95">
                     Manage Full Website Settings
                 </a>
             </div>
 
             <!-- Quick Website Shortcuts -->
-            <div class="bg-white rounded-2xl border border-stone-200 shadow-xs p-5 space-y-2.5 text-xs font-semibold">
-                <span class="text-[10px] font-bold uppercase tracking-wider text-stone-400 block mb-1">Quick Website Shortcuts</span>
+            <div class="bg-white rounded-2xl border border-rose-100 shadow-xs p-5 space-y-2.5 text-xs font-semibold">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-maroon/70 block mb-1">Quick Website Shortcuts</span>
                 
-                <a href="{{ route('admin.products.create') }}" class="flex items-center justify-between p-2.5 hover:bg-stone-50 rounded-xl transition-colors text-stone-800">
+                <a href="{{ route('admin.products.create') }}" class="flex items-center justify-between p-2.5 hover:bg-rose-50/60 rounded-xl transition-colors text-stone-800 hover:text-maroon">
                     <span class="flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-maroon"></span>
                         <span>Add New Saree Listing</span>
@@ -263,15 +263,15 @@
                     <span class="text-stone-400">&rarr;</span>
                 </a>
 
-                <a href="{{ route('admin.categories.create') }}" class="flex items-center justify-between p-2.5 hover:bg-stone-50 rounded-xl transition-colors text-stone-800">
+                <a href="{{ route('admin.categories.create') }}" class="flex items-center justify-between p-2.5 hover:bg-rose-50/60 rounded-xl transition-colors text-stone-800 hover:text-maroon">
                     <span class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-gold-dark"></span>
+                        <span class="w-2 h-2 rounded-full bg-gold"></span>
                         <span>Create New Category</span>
                     </span>
                     <span class="text-stone-400">&rarr;</span>
                 </a>
 
-                <a href="{{ route('admin.banners.create') }}" class="flex items-center justify-between p-2.5 hover:bg-stone-50 rounded-xl transition-colors text-stone-800">
+                <a href="{{ route('admin.banners.create') }}" class="flex items-center justify-between p-2.5 hover:bg-rose-50/60 rounded-xl transition-colors text-stone-800 hover:text-maroon">
                     <span class="flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-purple-600"></span>
                         <span>Upload Hero Slider Banner</span>
@@ -282,4 +282,5 @@
         </div>
     </div>
 </div>
+
 @endsection
