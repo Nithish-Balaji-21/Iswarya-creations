@@ -1,27 +1,28 @@
 @extends('layouts.admin')
 
 @section('title', 'Manage Categories & Collections – Iswarya Silks Admin')
+@section('page_heading', 'Categories & Collections')
 
 @section('content')
 <div class="space-y-6">
-    <div class="flex items-center justify-between pb-6 border-b border-rose-100">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-stone-200 gap-4">
         <div>
-            <span class="text-xs uppercase font-bold tracking-widest text-gold">Taxonomy & Navigation</span>
-            <h1 class="text-3xl font-bold text-stone-900 font-jost mt-1">Categories & Collections</h1>
+            <span class="text-xs uppercase font-bold tracking-widest text-gold-dark">Taxonomy & Navigation</span>
+            <h1 class="text-2xl sm:text-3xl font-bold text-stone-900 font-jost mt-1">Categories & Collections</h1>
             <p class="text-xs text-stone-500 mt-1">Classified by group: Weave, Fabric, Occasion, and Kanjeevaram.</p>
         </div>
 
-        <a href="{{ route('admin.categories.create') }}" class="btn-pill btn-maroon px-5 py-2.5 text-xs font-semibold tracking-wider uppercase flex items-center gap-1.5 shadow-2xs">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            <span>Add Category</span>
+        <a href="{{ route('admin.categories.create') }}" class="btn-pill btn-maroon px-5 py-2.5 text-xs font-semibold tracking-wider uppercase flex items-center gap-1.5 shadow-md">
+            <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>+ Add Category</span>
         </a>
     </div>
 
     <!-- Grouped Categories Tree -->
-    <div class="space-y-8">
+    <div class="space-y-6">
         @foreach($categories as $groupName => $items)
-            <div class="bg-white rounded-2xl border border-rose-100 shadow-2xs overflow-hidden">
-                <div class="bg-brand-pearl px-6 py-3 border-b border-rose-100 flex items-center justify-between">
+            <div class="bg-white rounded-2xl border border-stone-200 shadow-xs overflow-hidden">
+                <div class="bg-stone-50 px-6 py-3.5 border-b border-stone-200 flex items-center justify-between">
                     <span class="text-xs font-bold uppercase tracking-widest text-maroon font-jost">
                         Group: {{ ucfirst($groupName) }} ({{ $items->count() }})
                     </span>

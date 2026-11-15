@@ -108,5 +108,41 @@
                 </a>
             </div>
         </div>
+
+        <!-- Interactive Google Map Section -->
+        <div class="mt-12 bg-white rounded-2xl p-4 sm:p-6 border border-rose-100 shadow-xs">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-rose-100 gap-2 mb-4">
+                <div>
+                    <span class="text-xs uppercase font-bold tracking-widest text-gold">Visit Us In Person</span>
+                    <h3 class="text-lg font-bold text-stone-900 font-jost">Flagship Showroom Location Map</h3>
+                    <p class="text-xs text-stone-500">124, Avinashi Road, Peelamedu, Coimbatore • {{ \App\Models\Setting::showroomTimings() }}</p>
+                </div>
+                @if($googleMapsUrl)
+                    <a href="{{ $googleMapsUrl }}" target="_blank" rel="noopener noreferrer" class="btn-pill btn-maroon px-4 py-2 text-xs font-semibold tracking-wider uppercase inline-flex items-center gap-1.5 shadow-xs">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        <span>Open in Google Maps App</span>
+                    </a>
+                @endif
+            </div>
+            <div class="w-full h-80 sm:h-96 rounded-xl overflow-hidden border border-rose-100 shadow-inner bg-brand-pearl">
+                @php
+                    $mapsEmbed = \App\Models\Setting::googleMapsEmbed();
+                @endphp
+                @if(str_contains($mapsEmbed, '<iframe'))
+                    <div class="w-full h-full [&>iframe]:w-full [&>iframe]:h-full [&>iframe]:border-0">
+                        {!! $mapsEmbed !!}
+                    </div>
+                @else
+                    <iframe src="{{ $mapsEmbed ?: 'https://maps.google.com/maps?q=Iswarya+Silks+Peelamedu+Coimbatore&t=&z=15&ie=UTF8&iwloc=&output=embed' }}" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                @endif
+            </div>
+        </div>
     </div>
 @endsection

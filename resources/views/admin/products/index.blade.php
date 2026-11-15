@@ -1,36 +1,37 @@
 @extends('layouts.admin')
 
 @section('title', 'Manage Saree Inventory – Iswarya Silks Admin')
+@section('page_heading', 'Saree Catalog & Inventory')
 
 @section('content')
 <div class="space-y-6">
     <!-- Top Bar with Quick Add CTA -->
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-rose-100 gap-4">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-stone-200 gap-4">
         <div>
-            <span class="text-xs uppercase font-bold tracking-widest text-gold">Daily Stock & Catalog</span>
-            <h1 class="text-3xl font-bold text-stone-900 font-jost mt-1">Saree Inventory</h1>
-            <p class="text-xs text-stone-500 mt-1">Inline one-tap toggles for instant daily stock updates.</p>
+            <span class="text-xs uppercase font-bold tracking-widest text-gold-dark">Daily Stock & Master Catalog</span>
+            <h1 class="text-2xl sm:text-3xl font-bold text-stone-900 font-jost mt-1">Saree Inventory</h1>
+            <p class="text-xs text-stone-500 mt-1">Manage listings, prices, images, and 1-tap stock availability.</p>
         </div>
 
-        <a href="{{ route('admin.products.create') }}" class="btn-pill btn-maroon px-6 py-2.5 text-xs font-semibold tracking-wider uppercase flex items-center gap-2 shadow-md">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            <span>Quick Add Saree (< 30s)</span>
+        <a href="{{ route('admin.products.create') }}" class="btn-pill btn-maroon px-5 py-2.5 text-xs font-semibold tracking-wider uppercase flex items-center gap-2 shadow-md hover:shadow-lg transition-transform active:scale-95">
+            <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>+ Add New Saree</span>
         </a>
     </div>
 
     <!-- Filter Bar -->
-    <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-2xs">
+    <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs">
         <form method="GET" action="{{ route('admin.products.index') }}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 text-xs">
             <!-- Search -->
             <div class="lg:col-span-2">
-                <label class="block font-semibold text-stone-600 mb-1">Search SKU, Name, Colour</label>
-                <input type="text" name="q" value="{{ request('q') }}" placeholder="e.g. IC-0001 or Kanjeevaram..." class="w-full px-3 py-2 border border-rose-200 rounded-lg">
+                <label class="block font-bold text-stone-700 uppercase tracking-wider text-[11px] mb-1">Search SKU, Name, Colour</label>
+                <input type="text" name="q" value="{{ request('q') }}" placeholder="e.g. IC-0001, Korvai, or Pink..." class="w-full px-3.5 py-2.5 border border-stone-300 rounded-lg focus:outline-hidden focus:border-maroon focus:ring-1 focus:ring-maroon">
             </div>
 
             <!-- Category -->
             <div>
-                <label class="block font-semibold text-stone-600 mb-1">Category</label>
-                <select name="category_id" class="w-full px-3 py-2 border border-rose-200 rounded-lg bg-white">
+                <label class="block font-bold text-stone-700 uppercase tracking-wider text-[11px] mb-1">Category</label>
+                <select name="category_id" class="w-full px-3.5 py-2.5 border border-stone-300 rounded-lg bg-white focus:outline-hidden focus:border-maroon focus:ring-1 focus:ring-maroon">
                     <option value="">All Categories</option>
                     @foreach($categories as $cat)
                         <option value="{{ $cat->id }}" {{ request('category_id') == $cat->id ? 'selected' : '' }}>
@@ -42,8 +43,8 @@
 
             <!-- Availability -->
             <div>
-                <label class="block font-semibold text-stone-600 mb-1">Availability</label>
-                <select name="availability" class="w-full px-3 py-2 border border-rose-200 rounded-lg bg-white">
+                <label class="block font-bold text-stone-700 uppercase tracking-wider text-[11px] mb-1">Stock Availability</label>
+                <select name="availability" class="w-full px-3.5 py-2.5 border border-stone-300 rounded-lg bg-white focus:outline-hidden focus:border-maroon focus:ring-1 focus:ring-maroon">
                     <option value="">All Stock States</option>
                     @foreach(\App\Enums\ProductAvailability::cases() as $av)
                         <option value="{{ $av->value }}" {{ request('availability') === $av->value ? 'selected' : '' }}>
@@ -55,11 +56,11 @@
 
             <!-- Filter Buttons -->
             <div class="flex items-end gap-2">
-                <button type="submit" class="btn-pill btn-maroon w-full py-2 font-semibold">
-                    Filter
+                <button type="submit" class="btn-pill btn-maroon w-full py-2.5 text-xs font-semibold tracking-wider uppercase shadow-xs">
+                    Apply Filter
                 </button>
                 @if(request()->hasAny(['q', 'category_id', 'status', 'availability']))
-                    <a href="{{ route('admin.products.index') }}" class="btn-pill border border-stone-300 hover:bg-stone-100 px-3 py-2 text-stone-600 text-center">
+                    <a href="{{ route('admin.products.index') }}" class="btn-pill border border-stone-300 hover:bg-stone-100 px-3.5 py-2.5 text-stone-600 text-center text-xs font-semibold">
                         Reset
                     </a>
                 @endif
@@ -68,10 +69,10 @@
     </div>
 
     <!-- Products Table with Inline Toggles -->
-    <div class="bg-white rounded-2xl border border-rose-100 shadow-2xs overflow-hidden">
+    <div class="bg-white rounded-2xl border border-stone-200 shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
-                <thead class="bg-brand-pearl text-stone-600 uppercase tracking-wider text-[10px] border-b border-rose-100">
+                <thead class="bg-stone-50 text-stone-600 uppercase tracking-wider text-[10px] border-b border-stone-200">
                     <tr>
                         <th class="py-3 px-4">Saree</th>
                         <th class="py-3 px-4">SKU</th>

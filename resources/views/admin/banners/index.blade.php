@@ -1,26 +1,27 @@
 @extends('layouts.admin')
 
 @section('title', 'Manage Hero Banners – Iswarya Silks Admin')
+@section('page_heading', 'Hero Slider Banners')
 
 @section('content')
 <div class="space-y-6">
-    <div class="flex items-center justify-between pb-6 border-b border-rose-100">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-stone-200 gap-4">
         <div>
-            <span class="text-xs uppercase font-bold tracking-widest text-gold">Storefront Carousel</span>
-            <h1 class="text-3xl font-bold text-stone-900 font-jost mt-1">Hero Banner Slides</h1>
-            <p class="text-xs text-stone-500 mt-1">Manage desktop and mobile hero slides, button links, and order.</p>
+            <span class="text-xs uppercase font-bold tracking-widest text-gold-dark">Storefront Carousel</span>
+            <h1 class="text-2xl sm:text-3xl font-bold text-stone-900 font-jost mt-1">Hero Banner Slides</h1>
+            <p class="text-xs text-stone-500 mt-1">Manage desktop and mobile hero slides, button links, and order on the homepage.</p>
         </div>
 
-        <a href="{{ route('admin.banners.create') }}" class="btn-pill btn-maroon px-5 py-2.5 text-xs font-semibold tracking-wider uppercase flex items-center gap-1.5 shadow-2xs">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            <span>Add Banner Slide</span>
+        <a href="{{ route('admin.banners.create') }}" class="btn-pill btn-maroon px-5 py-2.5 text-xs font-semibold tracking-wider uppercase flex items-center gap-1.5 shadow-md">
+            <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>+ Add Banner Slide</span>
         </a>
     </div>
 
-    <div class="bg-white rounded-2xl border border-rose-100 shadow-2xs overflow-hidden">
+    <div class="bg-white rounded-2xl border border-stone-200 shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
-                <thead class="bg-brand-pearl text-stone-600 uppercase tracking-wider text-[10px] border-b border-rose-100">
+                <thead class="bg-stone-50 text-stone-600 uppercase tracking-wider text-[10px] border-b border-stone-200">
                     <tr>
                         <th class="py-3 px-6">Desktop Preview</th>
                         <th class="py-3 px-4">Title & Eyebrow</th>

@@ -61,6 +61,21 @@ class Setting extends Model
         return static::get('google_maps_url', config('iswarya.google_maps_url', 'https://share.google/qQvd7CVGrSjmYrHhM'));
     }
 
+    public static function googleMapsEmbed(): string
+    {
+        return static::get('google_maps_embed', 'https://maps.google.com/maps?q=Iswarya+Silks+Peelamedu+Coimbatore&t=&z=15&ie=UTF8&iwloc=&output=embed');
+    }
+
+    public static function showroomTimings(): string
+    {
+        return static::get('showroom_timings', '10:00 AM – 9:00 PM (Open All 7 Days)');
+    }
+
+    public static function announcementEnabled(): bool
+    {
+        return (bool) static::get('announcement_enabled', true);
+    }
+
     public static function contactEmail(): string
     {
         return static::get('contact_email', config('iswarya.contact_email', 'iswaryacreations1975@gmail.com'));

@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('title', 'Edit Saree ' . $product->sku . ' – Iswarya Silks Admin')
+@section('page_heading', 'Edit Saree Listing')
 
 @section('content')
 <div class="max-w-5xl mx-auto space-y-8">

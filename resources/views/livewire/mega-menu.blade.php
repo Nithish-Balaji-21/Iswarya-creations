@@ -1,5 +1,6 @@
 <header class="w-full bg-white border-b border-rose-100/60 sticky top-0 z-40 shadow-xs" x-data="{ mobileNav: false, categoryDropdown: false, searchOpen: false }">
     <!-- Announcement Bar -->
+    @if(\App\Models\Setting::announcementEnabled())
     <div class="bg-maroon text-white text-xs py-2 px-4 text-center font-medium tracking-wide">
         <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
             <svg class="w-3.5 h-3.5 text-gold-light" fill="currentColor" viewBox="0 0 20 20">
@@ -8,6 +9,7 @@
             <span>{{ \App\Models\Setting::announcementText() }}</span>
         </div>
     </div>
+    @endif
 
     <!-- Main Navigation Bar -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
